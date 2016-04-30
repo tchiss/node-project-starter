@@ -1,0 +1,10 @@
+{
+  "MONGOLAB": {
+    "host": "ds013280.mlab.com",
+    "port": "13280",
+    "dbName": "kasua_db",
+    "dbUser": "kasua_db_user",
+    "dbPassword": ">.>vxjNb",
+    "uri": "mongodb://kasua_db_user:>.>vxjNb@ds013280.mlab.com:13280/kasua_db"
+  }
+}
