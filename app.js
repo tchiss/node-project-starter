@@ -32,7 +32,7 @@ module.exports = function(port){
 
   app.get('/', function(req, res){
 
-    res.send('<h1> Hello Kasua</h1>');
+    res.send('<h1> Empty node server V1</h1>');
   });
 
   app.post('/user/new', UserController.create);
