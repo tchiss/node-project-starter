@@ -5,10 +5,13 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dbConfig = require('./config/db.json');
+const config = require('./config/env/index');
 const _ = require('lodash');
 const async = require('async');
+var stripe = require("stripe")(config.secrets.STRIPE_SECRET_KEY);
 
 const UserController = require('./build/api/controllers/UserController');
+const StripeController = require('./build/api/controllers/StripeController');
 const User = require('./build/api/models/User');
 
 module.exports = function(port){
@@ -36,6 +39,28 @@ module.exports = function(port){
   });
 
   app.post('/user/new', UserController.create);
+  app.post('/payment/tripe', function(req, res, next){
+    stripe.tokens.create({
+      card: {
+        "number": '4242424242424242',
+        "exp_month": 12,
+        "exp_year": 2017,
+        "cvc": '123'
+      }
+    }, function(err, token) {
+      stripe.charges.create({
+        amount: req.body.price,
+        currency: req.body.currency,
+        source: token.id
+      })
+      .then(function(charges){
+        res.status(200).send(charges);
+      })
+      .catch(function(err){
+        res.status(500).send(err);
+      })
+    });
+  });
 
   return app;
 }
