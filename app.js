@@ -50,7 +50,8 @@ module.exports = function(port){
 
   app.post('/user/new', UserController.create);
   app.post('/payment/tripe', function(req, res, next){
-    console.log("Object", JSON.parse(req.body));
+    var json = JSON.stringify(eval("(" + req.body + ")"));
+    console.log("JSON", JSON.parse(req.body));
     console.log(req.body);
     stripe.tokens.create({
       card: {
