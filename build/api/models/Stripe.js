@@ -12,5 +12,5 @@ var stripeSchema = new mongoose.Schema({
   paid: {type: Boolean}
 });
 
-let Stripe = mongoose.model('User', stripeSchema);
+let Stripe = mongoose.model('Stripe', stripeSchema);
 module.exports = Stripe;
