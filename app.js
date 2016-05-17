@@ -9,6 +9,7 @@ const config = require('./config/env/index');
 const _ = require('lodash');
 const async = require('async');
 var stripe = require("stripe")(config.secrets.STRIPE_SECRET_KEY);
+var auth = require('basic-auth');
 
 const UserController = require('./build/api/controllers/UserController');
 const StripeController = require('./build/api/controllers/StripeController');
@@ -35,8 +36,16 @@ module.exports = function(port){
   });
 
   app.get('/', function(req, res){
+    var credentials = auth(req)
+    // res.send('<h1> Empty node server V1</h1>');
 
-    res.send('<h1> Empty node server V1</h1>');
+    if (!credentials || credentials.name !== 'benight' || credentials.pass !== 'eip') {
+      res.statusCode = 401
+      res.setHeader('WWW-Authenticate', 'Basic realm="example"')
+      res.end('Benight Stripe - Access denied')
+    } else {
+      res.end('Benight Stripe - Access granted')
+    }
   });
 
   app.post('/user/new', UserController.create);

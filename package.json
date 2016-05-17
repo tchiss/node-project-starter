@@ -13,6 +13,7 @@
     "async": "^2.0.0-rc.2",
     "babel": "5.8.23",
     "base-64": "0.1.0",
+    "basic-auth": "^1.0.4",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.5.2",
     "express": "^4.13.4",
