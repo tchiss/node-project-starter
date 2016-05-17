@@ -63,8 +63,11 @@ module.exports = function(port){
           status: charges.status,
           paid: charges.paid
         }
-        Stripe.create(newPayment, function(_res){
-          res.status(200).send(charges);
+        Stripe.create(newPayment, function(err, _res){
+          if (err){
+            res.status(500).send(err);
+          }
+          res.status(200).send(_res);
         })
 
       })
