@@ -57,7 +57,7 @@ module.exports = function(port){
         res.status(200).send(charges);
       })
       .catch(function(err){
-        res.status(500).send(err);
+        res.status(500).send(err.message);
       })
     });
   });
