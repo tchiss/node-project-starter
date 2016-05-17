@@ -51,7 +51,7 @@ module.exports = function(port){
   app.post('/user/new', UserController.create);
   app.post('/payment/tripe', function(req, res, next){
     // var json = JSON.stringify(req.body);
-    console.log(req.body);
+
     // console.log(req.body);
     stripe.tokens.create({
       card: {
@@ -79,6 +79,7 @@ module.exports = function(port){
           if (err){
             res.status(500).send(err);
           }
+          console.log(_res);
           res.status(200).send(_res);
         })
 
