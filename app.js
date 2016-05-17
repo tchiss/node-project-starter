@@ -50,43 +50,43 @@ module.exports = function(port){
 
   app.post('/user/new', UserController.create);
   app.post('/payment/tripe', function(req, res, next){
-    var json = JSON.stringify(req.body);
+    // var json = JSON.stringify(req.body);
     console.log("JSON", json);
-    console.log(req.body);
-    stripe.tokens.create({
-      card: {
-        "number": req.body.card.number,
-        "exp_month": req.body.card.exp_month,
-        "exp_year": req.body.card.exp_year,
-        "cvc": req.body.card.cvc
-      }
-    }, function(err, token) {
-      stripe.charges.create({
-        amount: req.body.price,
-        currency: req.body.currency,
-        source: token.id
-      })
-      .then(function(charges){
-        var newPayment = {
-          stripID: charges.id,
-          balance_transaction: charges.balance_transaction,
-          currency: charges.currency,
-          price: charges.amount,
-          status: charges.status,
-          paid: charges.paid
-        }
-        Stripe.create(newPayment, function(err, _res){
-          if (err){
-            res.status(500).send(err);
-          }
-          res.status(200).send(_res);
-        })
-
-      })
-      .catch(function(err){
-        res.status(500).send(err.message);
-      })
-    });
+    // console.log(req.body);
+    // stripe.tokens.create({
+    //   card: {
+    //     "number": req.body.card.number,
+    //     "exp_month": req.body.card.exp_month,
+    //     "exp_year": req.body.card.exp_year,
+    //     "cvc": req.body.card.cvc
+    //   }
+    // }, function(err, token) {
+    //   stripe.charges.create({
+    //     amount: req.body.price,
+    //     currency: req.body.currency,
+    //     source: token.id
+    //   })
+    //   .then(function(charges){
+    //     var newPayment = {
+    //       stripID: charges.id,
+    //       balance_transaction: charges.balance_transaction,
+    //       currency: charges.currency,
+    //       price: charges.amount,
+    //       status: charges.status,
+    //       paid: charges.paid
+    //     }
+    //     Stripe.create(newPayment, function(err, _res){
+    //       if (err){
+    //         res.status(500).send(err);
+    //       }
+    //       res.status(200).send(_res);
+    //     })
+    //
+    //   })
+    //   .catch(function(err){
+    //     res.status(500).send(err.message);
+    //   })
+    // });
   });
 
   return app;
