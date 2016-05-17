@@ -13,6 +13,7 @@ var stripe = require("stripe")(config.secrets.STRIPE_SECRET_KEY);
 const UserController = require('./build/api/controllers/UserController');
 const StripeController = require('./build/api/controllers/StripeController');
 const User = require('./build/api/models/User');
+const Stripe = require('./build/api/models/Stripe');
 
 module.exports = function(port){
 
