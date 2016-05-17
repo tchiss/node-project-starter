@@ -42,10 +42,10 @@ module.exports = function(port){
   app.post('/payment/tripe', function(req, res, next){
     stripe.tokens.create({
       card: {
-        "number": '4242424242424242',
-        "exp_month": 12,
-        "exp_year": 2017,
-        "cvc": '123'
+        "number": req.body.card.number,
+        "exp_month": req.body.card.exp_month,
+        "exp_year": req.body.card.exp_year,
+        "cvc": req.body.card.cvc
       }
     }, function(err, token) {
       stripe.charges.create({
