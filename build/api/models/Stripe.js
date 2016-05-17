@@ -7,7 +7,10 @@ const crypto = require('crypto');
 
 
 var userSchema = new mongoose.Schema({
-  description: {type: String},
+  stripID: {type: String},
+  balance_transaction: {type: String},
   currency: {type: String},
-  price: {type: Number}
+  price: {type: Number},
+  status: {type: String},
+  paid: {type: Boolean}
 });

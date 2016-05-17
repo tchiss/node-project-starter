@@ -54,7 +54,18 @@ module.exports = function(port){
         source: token.id
       })
       .then(function(charges){
-        res.status(200).send(charges);
+        var newPayment = {
+          stripID: charges.id,
+          balance_transaction: charges.balance_transaction,
+          currency: charges.currency,
+          price: charges.amount,
+          status: charges.status,
+          paid: charges.paid
+        }
+        Stripe.create(newPayment, function(_res){
+          res.status(200).send(charges);
+        })
+
       })
       .catch(function(err){
         res.status(500).send(err.message);
